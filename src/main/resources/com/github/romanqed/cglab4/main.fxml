@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="720.0" prefWidth="1280.0"
+            xmlns="http://javafx.com/javafx/8" fx:controller="com.github.romanqed.cglab4.MainController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <Menu text="Главное">
+                <MenuItem onAction="#onAboutAction" text="О программе"/>
+                <MenuItem onAction="#onAuthorAction" text="Автор"/>
+                <MenuItem onAction="#onTimeCompare" text="Сравнение времени работы"/>
+                <MenuItem accelerator="Ctrl+Q" onAction="#onExitAction" text="Выход"/>
+            </Menu>
+            <Menu text="Редактировать">
+                <MenuItem accelerator="Ctrl+Z" onAction="#onCancelAction" text="Отменить"/>
+                <MenuItem accelerator="Ctrl+X" onAction="#onRedoAction" text="Вернуть"/>
+                <MenuItem onAction="#onResetAction" text="Сбросить"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <SplitPane dividerPositions="0.80" prefHeight="160.0" prefWidth="200.0"
+                   BorderPane.alignment="TOP_LEFT">
+
+            <ScrollPane vvalue="1.0">
+                <Canvas fx:id="canvas" width="2000" height="2000" onMouseClicked="#onCanvasMouseClicked"/>
+            </ScrollPane>
+            <ScrollPane>
+                <VBox>
+                    <TitledPane text="Метод">
+                        <VBox>
+                            <RadioButton userData="cl" text="Каноническое уравнение">
+                                <toggleGroup>
+                                    <ToggleGroup fx:id="method"/>
+                                </toggleGroup>
+                            </RadioButton>
+                            <RadioButton userData="p" text="Параметрическое уравнение">
+                                <toggleGroup>
+                                    <fx:reference source="method"/>
+                                </toggleGroup>
+                            </RadioButton>
+                            <RadioButton userData="br" text="Брезенхем">
+                                <toggleGroup>
+                                    <fx:reference source="method"/>
+                                </toggleGroup>
+                            </RadioButton>
+                            <RadioButton userData="mp" text="Средняя точка">
+                                <toggleGroup>
+                                    <fx:reference source="method"/>
+                                </toggleGroup>
+                            </RadioButton>
+                            <RadioButton userData="jfx" text="JavaFX" selected="true">
+                                <toggleGroup>
+                                    <fx:reference source="method"/>
+                                </toggleGroup>
+                            </RadioButton>
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane text="Параметры">
+                        <VBox>
+                            <TitledPane collapsible="false" text="Центр">
+                                <VBox>
+                                    <Label text="X"/>
+                                    <TextField fx:id="cx"/>
+                                    <Label text="Y"/>
+                                    <TextField fx:id="cy"/>
+                                </VBox>
+                            </TitledPane>
+                            <TitledPane collapsible="false" text="Радиусы">
+                                <VBox>
+                                    <Label text="R1"/>
+                                    <TextField fx:id="r1"/>
+                                    <Label text="R2 (Только для эллипса)"/>
+                                    <TextField fx:id="r2"/>
+                                </VBox>
+                            </TitledPane>
+                            <CheckBox fx:id="ellipse" text="Эллипс"/>
+                            <Button text="Отрисовать" onAction="#onDraw"/>
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane text="Цвета">
+                        <VBox>
+                            <Label text="Цвет фона"/>
+                            <ColorPicker fx:id="backgroundPicker"/>
+                            <Label text="Цвет линии"/>
+                            <ColorPicker fx:id="linePicker"/>
+                        </VBox>
+                    </TitledPane>
+                    <TitledPane text="Спектр">
+                        <VBox>
+                            <TitledPane collapsible="false" text="Параметры">
+                                <VBox>
+                                    <Label text="Шаг"/>
+                                    <TextField fx:id="step"/>
+                                    <Label text="Количество фигур"/>
+                                    <TextField fx:id="amount"/>
+                                </VBox>
+                            </TitledPane>
+                            <Button text="Отрисовать спектр" onAction="#onBeam"/>
+                        </VBox>
+                    </TitledPane>
+                </VBox>
+            </ScrollPane>
+        </SplitPane>
+    </center>
+</BorderPane>
